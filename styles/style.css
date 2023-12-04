@@ -9,3 +9,38 @@ table {
     height: 30px;
     text-align: center;
   }
+  
+  .tTabuleiro {
+    align-content: center;
+  }
+  h1 {
+    align-content: center;
+  }
+  #rolarDadoJogador1 {
+    background: #9C1111;
+	  color: #D6C0B4;
+	  font-weight: bold;
+	  font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    padding: 0.5% 0.8%;
+    transition: 0.3s;
+    box-shadow: 0px 1px 5px black;
+    display: block;
+    font-family: "Montserrat", sans-serif;
+  }
+  #rolarDadoJogador2 {
+    background: #9C1111;
+	  color: white;
+	  font-weight: bold;
+	  font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    padding: 0.5% 0.8%;
+    transition: 0.3s;
+    box-shadow: 0px 1px 5px black;
+    display: block;
+    font-family: "Montserrat", sans-serif;
+  }
