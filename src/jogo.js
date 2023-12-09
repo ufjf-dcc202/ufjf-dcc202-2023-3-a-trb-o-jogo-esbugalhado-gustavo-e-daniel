@@ -98,3 +98,27 @@ export function celulaClicada(jogador, rowIndex, cellIndex) {
         }
     }
 }
+
+
+export function realizarSorteio(jogador) {
+    // Função responsável por realizar o sorteio de um jogador
+    const tabela = document.getElementById(`tabela${jogador}`);
+
+    // Adiciona o evento de clique a cada célula da tabela
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            tabela.rows[i].cells[j].addEventListener('click', function () {
+                celulaClicada(jogador, i, j);
+            });
+        }
+    }
+
+    // Atribui à div vezJogador o resultado de quem joga na jogada
+    const elementoVezJogador = document.getElementById('vezJogador');
+    elementoVezJogador.textContent = `Jogador ${jogador} clique em uma célula para adicionar o valor de sua jogada.`;
+
+    // Aplica estilos para centralizar o texto da div vezJogador
+    elementoVezJogador.style.textAlign = 'center';
+    elementoVezJogador.style.marginTop = '0';
+    elementoVezJogador.style.marginBottom = '2%';
+}
