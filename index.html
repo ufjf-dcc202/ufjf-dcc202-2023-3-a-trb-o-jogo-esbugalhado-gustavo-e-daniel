@@ -13,15 +13,28 @@
 <body class="corpo">
     <h1>Esbugalhado o Jogo</h1>
     <main>
-        <h2 class="tTabuleiro">Sorteio de Dados</h2>
-        <p id="resultadoDoSorteio">Clique para rolar o dado</p>
-        <div class="jogador1">
-            <table class="tabela" id="tabela1"></table>
-            <button id="rolarDadoJogador1">Rolar Dado Jogador 1</button>
-        </div>
         <div>
-            <table class="tabela" id="tabela2"></table>
+            <h2 class="tTabuleiro">Sorteio do primeiro jogador</h2>
+            <button id="sorteioPrimeiroJogador">Sortear Jogador que começará jogando</button>
+            <div id="resultadoPrimeiroJogar"></div>
+        </div>
+        <div class="jogador1">
+            <div class="conteudo">
+                <span id="pontuacaoJogador1"></span>
+                <table class="tabela" id="tabela1"></table>
+            </div>
+            <button id="rolarDadoJogador1">Rolar Dado Jogador 1</button>
+            <p id="resultadoDoSorteio"></p>
+            <div id="vezJogador"></div>
+        </div>
+        <div class="jogador2">
+            <div class="conteudo">
+                <span id="pontuacaoJogador2"></span>
+                <table class="tabela" id="tabela2"></table>
+            </div>
             <button id="rolarDadoJogador2">Rolar Dado Jogador 2</button>
+            <p id="resultadoDoSorteio"></p>
+            <div id="vezJogador"></div>
         </div>
     </main>
 </body>

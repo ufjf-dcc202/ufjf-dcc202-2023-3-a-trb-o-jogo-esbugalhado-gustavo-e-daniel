@@ -1,6 +1,6 @@
 table {
     
-    width: 350px;
+    width: 500px;
   }
   
   td {
@@ -13,10 +13,70 @@ table {
   
   .tTabuleiro {
     align-content: center;
+    text-align: center;
   }
+
   h1 {
     align-content: center;
   }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0 auto;
+}
+
+button {
+  margin-top: 10%; /* Adicione margem conforme necessário */
+  margin: auto;
+}
+
+.jogador1 > h2{margin: auto;}
+
+.jogador2 > h2{margin: auto;}
+
+p{
+  margin-top: 30%; /* Adicione margem conforme necessário */
+  margin: auto;
+}
+
+#resultadoPrimeiroJogar{
+  background: #169c11;
+	  color: white;
+	  font-weight: bold;
+	  font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    transition: 0.3s;
+    box-shadow: 0px 1px 5px black;
+    display: block;
+    font-family: "Montserrat", sans-serif;    
+    margin-top: 3%;
+    margin-bottom: 3%;
+    text-align: center;
+}
+
+  #sorteioPrimeiroJogador {
+    background: #9C1111;
+	  color: white;
+	  font-weight: bold;
+	  font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    padding: 0.5% 0.8%;
+    transition: 0.3s;
+    box-shadow: 0px 1px 5px black;
+    display: block;
+    font-family: "Montserrat", sans-serif;    
+    margin-bottom: 3%;
+    text-align: center;
+  }
+
   #rolarDadoJogador1 {
     background: #9C1111;
 	  color: white;
@@ -30,7 +90,11 @@ table {
     box-shadow: 0px 1px 5px black;
     display: block;
     font-family: "Montserrat", sans-serif;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    text-align: center;
   }
+
   #rolarDadoJogador2 {
     background: #9C1111;
 	  color: white;
@@ -44,4 +108,7 @@ table {
     box-shadow: 0px 1px 5px black;
     display: block;
     font-family: "Montserrat", sans-serif;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    text-align: center;
   }
