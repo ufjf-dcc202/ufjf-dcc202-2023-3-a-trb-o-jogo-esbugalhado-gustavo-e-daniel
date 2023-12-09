@@ -62,3 +62,39 @@ function calcularPontuacao(tabela) {
 
     return pontuacao;
 }
+
+
+export function sortearPrimeiroJogador() {
+    // Função responsável por sortear quem será o primeiro jogador
+    const jogador = Math.random() < 0.5 ? 1 : 2;
+
+    const elementoResultado = document.getElementById('resultadoPrimeiroJogar');
+    elementoResultado.textContent = `Jogador ${jogador} começa jogando. Role o seu dado.`;
+
+    vezDoJogador = jogador;  // Atualize vezDoJogador com o jogador sorteado
+
+    return jogador;
+}
+
+
+export function celulaClicada(jogador, rowIndex, cellIndex) {
+    const tabela = document.getElementById(`tabela${jogador}`);
+    const celula = tabela.rows[rowIndex].cells[cellIndex];
+
+    if (celula.textContent === '') {
+        const resultadoDoSorteio = rolarDado();
+        const faceDado = (jogador === 1) ? resultadoDoSorteio : resultadoDoSorteio;
+
+        celula.textContent = faceDado;
+
+        const proximoJogador = (jogador === 1) ? 2 : 1;
+        const elementoVezJogador = document.getElementById('vezJogador');
+        elementoVezJogador.textContent = `Agora é sua vez Jogador ${proximoJogador}. Role o seu dado.`;
+
+        // Agora que a célula foi preenchida, atualizamos a pontuação
+        const pontuacao = document.getElementById(`pontuacaoJogador${jogador}`);
+        if (pontuacao) {
+            pontuacao.textContent = `Pontuação: ${calcularPontuacao(tabela)}`;
+        }
+    }
+}
