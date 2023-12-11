@@ -14,6 +14,73 @@
   width: 225px;
   margin: auto;
 }
-#jogoEsbugalhado{
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  margin: 0;
+}
+
+#jogoEsbugalhado1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  margin: 0;
+}
+
+#jogoEsbugalhado2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0;
+}
+
+.infoJogo{
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around; /* Espaçamento automático entre os elementos */
+  background-color: #f0f0f0; /* Cor de fundo da div */
+  padding: 5px; /* Espaçamento interno da div */
+  border-radius: 8px; /* Borda arredondada */
+  width: 500px;
+}
+
+.infoJogo button {
+  padding: 5px; /* Adicione preenchimento aos botões conforme necessário */
+  font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
+  background-color: #4caf50; /* Cor de fundo dos botões */
+  color: #fff; /* Cor do texto nos botões */
+  border: none; /* Remova a borda dos botões */
+  border-radius: 5px; /* Borda arredondada nos botões */
+  cursor: pointer; /* Cursor ao passar o mouse sobre os botões */
+}
+
+#textoSobre {
+  margin-left: 10px; /* Adicione um espaçamento à esquerda do texto se necessário */
+  font-size: 18px; /* Ajuste o tamanho da fonte conforme necessário */
+  color: #333; /* Cor do texto */
+}
+
+#jogoEsbugalhado1,
+#jogoEsbugalhado2,
+#textoSobre,
+#rodarDado1,
+#rodarDado2,
+#reiniciarBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0;
+  margin-top: 10px;
 }
