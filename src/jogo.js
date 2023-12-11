@@ -4,6 +4,8 @@ const textoSobre = document.querySelector("#textoSobre");
 const reiniciarBtn = document.querySelector("#reiniciarBtn");
 let opcoesTabuleiro1 = ["", "", "", "", "", "", "", "", ""];
 let opcoesTabuleiro2 = ["", "", "", "", "", "", "", "", ""];
+let pontuacaoTabuleiro1 = 0;
+let pontuacaoTabuleiro2 = 0;
 let jogadorAtual = "1";
 let jogoRodando = false;
 
@@ -38,7 +40,17 @@ function rodarDado(tabuleiro) {
 function updateCell(cell, index, valor, opcoes) {
     opcoes[index] = jogadorAtual;
     cell.textContent = valor;
+
+    // Atualiza a pontuação do tabuleiro correspondente
+    if (jogadorAtual === "1") {
+        pontuacaoTabuleiro1 += valor;
+        document.getElementById("pontuacaoTabuleiro1").textContent = pontuacaoTabuleiro1;
+    } else {
+        pontuacaoTabuleiro2 += valor;
+        document.getElementById("pontuacaoTabuleiro2").textContent = pontuacaoTabuleiro2;
+    }
 }
+
 
 function mudarVez() {
     jogadorAtual = (jogadorAtual === "1") ? "2" : "1";
@@ -53,44 +65,59 @@ function checaVencedor(opcoes) {
 function reiniciarJogo() {
     opcoesTabuleiro1 = ["", "", "", "", "", "", "", "", ""];
     opcoesTabuleiro2 = ["", "", "", "", "", "", "", "", ""];
+    
     jogadorAtual = "1";
     jogoRodando = true;
 
-    // Limpar o conteúdo das células do Tabuleiro 1
+    // Limpar o conteúdo das células do Tabuleiro 1 e reiniciar a pontuação
     cellsTabuleiro1.forEach(cell => {
         cell.textContent = "";
         cell.removeEventListener("click", cellClicked);
         cell.addEventListener("click", cellClicked);
     });
+    pontuacaoTabuleiro1 = 0;
+    document.getElementById("pontuacaoTabuleiro1").textContent = pontuacaoTabuleiro1;
 
-    // Limpar o conteúdo das células do Tabuleiro 2
+    // Limpar o conteúdo das células do Tabuleiro 2 e reiniciar a pontuação
     cellsTabuleiro2.forEach(cell => {
         cell.textContent = "";
         cell.removeEventListener("click", cellClicked);
         cell.addEventListener("click", cellClicked);
     });
+    pontuacaoTabuleiro2 = 0;
+    document.getElementById("pontuacaoTabuleiro2").textContent = pontuacaoTabuleiro2;
 
     // Atualizar o texto sobre
     textoSobre.textContent = `Vez do jogador ${jogadorAtual}`;
 }
 
+
 function cellClicked() {
     const cellIndex = parseInt(this.getAttribute("cellIndex"));
 
-    const valorSorteado = parseInt(textoSobre.textContent.split(' ')[2]);
-    const tabuleiro = this.closest("#jogoEsbugalhado1") ? 1 : 2;
+    if (!jogoRodando) {
+        return;
+    }
 
+    const tabuleiro = this.closest("#jogoEsbugalhado1") ? 1 : 2;
     const cells = (tabuleiro === 1) ? cellsTabuleiro1 : cellsTabuleiro2;
     const opcoes = (tabuleiro === 1) ? opcoesTabuleiro1 : opcoesTabuleiro2;
 
-    if (opcoes[cellIndex] !== "" || !jogoRodando) {
+    if (opcoes[cellIndex] !== "") {
         return;
     }
+
+    const valorSorteadoText = textoSobre.textContent.match(/\d+/); // Extrai o valor numérico usando expressão regular
+    const valorSorteado = valorSorteadoText ? parseInt(valorSorteadoText[0]) : 0;
 
     updateCell(this, cellIndex, valorSorteado, opcoes);
     checaVencedor(opcoes);
     mudarVez();
+
+    // Remover o listener de evento após o clique, pois não é necessário adicionar novamente
+    this.removeEventListener("click", cellClicked);
 }
+
 
 function iniciaJogo() {
     cellsTabuleiro1.forEach(cell => cell.addEventListener("click", cellClicked));

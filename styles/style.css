@@ -46,12 +46,18 @@ body {
 .infoJogo{
   margin-top: 20px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around; /* Espaçamento automático entre os elementos */
   background-color: #f0f0f0; /* Cor de fundo da div */
   padding: 5px; /* Espaçamento interno da div */
   border-radius: 8px; /* Borda arredondada */
   width: 500px;
+}
+
+.botoes {
+  display: flex;
+  gap: 10px;
 }
 
 .infoJogo button {
