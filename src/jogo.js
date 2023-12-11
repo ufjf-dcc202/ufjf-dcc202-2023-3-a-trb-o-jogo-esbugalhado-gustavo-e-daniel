@@ -58,9 +58,9 @@ function mudarVez() {
 }
 
 function checaVencedor(opcoes) {
-    // Adicione lógica para verificar a condição de vitória usando opcoes.
-    // Se um jogador vencer, você pode definir jogoRodando para false e exibir uma mensagem.
+    
 }
+
 
 function reiniciarJogo() {
     opcoesTabuleiro1 = ["", "", "", "", "", "", "", "", ""];
