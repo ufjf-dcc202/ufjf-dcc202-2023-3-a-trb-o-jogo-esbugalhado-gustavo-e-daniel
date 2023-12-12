@@ -14,6 +14,7 @@ rodarDado1Btn.addEventListener("click", () => rodarDado(1));
 const rodarDado2Btn = document.querySelector("#rodarDado2");
 rodarDado2Btn.addEventListener("click", () => rodarDado(2));
 
+// Função responsável para rodar o dado dos tabuleiros
 function rodarDado(tabuleiro) {
     if (!jogoRodando) {
         return;
@@ -37,6 +38,7 @@ function rodarDado(tabuleiro) {
     });
 }
 
+// Função de atualização da pontuação dos tabuleiros
 function updateCell(cell, index, valor, opcoes) {
     opcoes[index] = jogadorAtual;
     cell.textContent = valor;
@@ -51,17 +53,43 @@ function updateCell(cell, index, valor, opcoes) {
     }
 }
 
+// Função para criar uma jogada automática do jogador robô
+function jogadaAutomatica() {
+    if (!jogoRodando || jogadorAtual !== "1") {
+        return;
+    }
 
+    const cells = cellsTabuleiro1;
+    const opcoes = opcoesTabuleiro1;
+
+    let indiceAleatorio;
+    do {
+        indiceAleatorio = Math.floor(Math.random() * 9);
+    } while (opcoes[indiceAleatorio] !== "");
+
+    const valorSorteado = Math.floor(Math.random() * 6) + 1;
+
+    // Simula um clique na célula automaticamente
+    updateCell(cells[indiceAleatorio], indiceAleatorio, valorSorteado, opcoes);
+    checaVencedor(opcoes);
+    mudarVez();
+}
+
+// Função que muda a vez dos jogadores 
 function mudarVez() {
     jogadorAtual = (jogadorAtual === "1") ? "2" : "1";
     textoSobre.textContent = `Vez do jogador ${jogadorAtual}`;
+
+    if (jogadorAtual === "1") {
+        jogadaAutomatica(); // Chama a jogada automática quando for a vez do jogador automático
+    }
 }
 
 function checaVencedor(opcoes) {
     
 }
 
-
+// Função para reiniciar o jogo quando o botão é pressionado no index.html
 function reiniciarJogo() {
     opcoesTabuleiro1 = ["", "", "", "", "", "", "", "", ""];
     opcoesTabuleiro2 = ["", "", "", "", "", "", "", "", ""];
@@ -69,7 +97,7 @@ function reiniciarJogo() {
     jogadorAtual = "1";
     jogoRodando = true;
 
-    // Limpar o conteúdo das células do Tabuleiro 1 e reiniciar a pontuação
+    // Limpa o conteúdo das células do Tabuleiro 1 e reinicia a pontuação
     cellsTabuleiro1.forEach(cell => {
         cell.textContent = "";
         cell.removeEventListener("click", cellClicked);
@@ -78,7 +106,7 @@ function reiniciarJogo() {
     pontuacaoTabuleiro1 = 0;
     document.getElementById("pontuacaoTabuleiro1").textContent = pontuacaoTabuleiro1;
 
-    // Limpar o conteúdo das células do Tabuleiro 2 e reiniciar a pontuação
+    // Limpa o conteúdo das células do Tabuleiro 2 e reinicia a pontuação
     cellsTabuleiro2.forEach(cell => {
         cell.textContent = "";
         cell.removeEventListener("click", cellClicked);
@@ -87,11 +115,11 @@ function reiniciarJogo() {
     pontuacaoTabuleiro2 = 0;
     document.getElementById("pontuacaoTabuleiro2").textContent = pontuacaoTabuleiro2;
 
-    // Atualizar o texto sobre
+    // Atualiza o texto sobre
     textoSobre.textContent = `Vez do jogador ${jogadorAtual}`;
 }
 
-
+// Função responsável por dar os cliques nas células
 function cellClicked() {
     const cellIndex = parseInt(this.getAttribute("cellIndex"));
 
@@ -114,17 +142,19 @@ function cellClicked() {
     checaVencedor(opcoes);
     mudarVez();
 
-    // Remover o listener de evento após o clique, pois não é necessário adicionar novamente
     this.removeEventListener("click", cellClicked);
 }
 
-
+// Função que inicia o jogo
 function iniciaJogo() {
     cellsTabuleiro1.forEach(cell => cell.addEventListener("click", cellClicked));
     cellsTabuleiro2.forEach(cell => cell.addEventListener("click", cellClicked));
     reiniciarBtn.addEventListener("click", reiniciarJogo);
 
     jogoRodando = true;
+
+    // Inicia o jogo com a jogada automática
+    mudarVez();
 }
 
 iniciaJogo();
