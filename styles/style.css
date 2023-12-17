@@ -20,6 +20,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /* Outras propriedades do body... */
+  background-image: url('/img/planoFundo.png');
+  background-size: cover; /* Ajusta o tamanho da imagem para cobrir todo o plano de fundo */
+  background-position: center; /* Centraliza a imagem no plano de fundo */
+  background-repeat: no-repeat; /* Evita a repetição da imagem */
   /*height: 100vh; /* Ocupa a altura total da viewport */
 }
 
@@ -51,7 +56,7 @@ body {
   margin-top: 20px;  
   align-items: center;
   justify-content: space-around; /* Espaçamento automático entre os elementos */
-  background-color: #f0f0f0; /* Cor de fundo da div */
+  /*background-color: #ffffff; /* Cor de fundo da div */
   padding: 5px; /* Espaçamento interno da div */
   border-radius: 8px; /* Borda arredondada */
   width: 500px;
@@ -94,5 +99,5 @@ body {
   justify-content: center;
   text-align: center;
   margin: 0;
-  margin-top: 10px;
+  margin-top: px;
 }
