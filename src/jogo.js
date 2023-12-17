@@ -16,23 +16,35 @@ rodarDado2Btn.addEventListener("click", () => rodarDado(2));
 
 // Função responsável para rodar o dado dos tabuleiros
 function rodarDado(tabuleiro) {
+    // Verifica se o jogo está rodando, se não estiver, a função retorna sem fazer nada
     if (!jogoRodando) {
         return;
     }
 
+    // Gera um número aleatório de 1 a 6, simulando o lançamento de um dado
     const valorSorteado = Math.floor(Math.random() * 6) + 1;
+
+    // Atualiza um elemento de texto com o valor sorteado
     textoSobre.textContent = `Dado sorteou: ${valorSorteado}`;
 
+    // Determina as células e opções do tabuleiro com base no argumento "tabuleiro"
     const cells = (tabuleiro === 1) ? cellsTabuleiro1 : cellsTabuleiro2;
     const opcoes = (tabuleiro === 1) ? opcoesTabuleiro1 : opcoesTabuleiro2;
 
+    // Adiciona um evento de clique a cada célula do tabuleiro
     cells.forEach((cell, index) => {
         cell.addEventListener("click", function cellClicked() {
+            // Verifica se a célula já foi selecionada ou se o jogo não está rodando
             if (opcoes[index] !== "" || !jogoRodando) {
                 return;
             }
+            // Atualiza a célula com base no valor sorteado e nas opções do tabuleiro
             updateCell(this, index, valorSorteado, opcoes);
+
+            // Verifica se há um vencedor após a atualização da célula
             checaVencedor(opcoes);
+
+            // Muda a vez do jogador após a jogada
             mudarVez();
         });
     });
@@ -40,38 +52,56 @@ function rodarDado(tabuleiro) {
 
 // Função de atualização da pontuação dos tabuleiros
 function updateCell(cell, index, valor, opcoes) {
+    // Define o valor da célula no array de opções como o jogador atual
     opcoes[index] = jogadorAtual;
+
+    // Define o conteúdo da célula como o valor sorteado
     cell.textContent = valor;
 
     // Atualiza a pontuação do tabuleiro correspondente
     if (jogadorAtual === "1") {
+        // Se o jogador atual for o jogador 1, atualiza a pontuação do Tabuleiro 1
         pontuacaoTabuleiro1 += valor;
+
+        // Atualiza o elemento HTML exibindo a pontuação do Tabuleiro 1
         document.getElementById("pontuacaoTabuleiro1").textContent = pontuacaoTabuleiro1;
     } else {
+        // Se o jogador atual não for o jogador 1, atualiza a pontuação do Tabuleiro 2
         pontuacaoTabuleiro2 += valor;
+
+        // Atualiza o elemento HTML exibindo a pontuação do Tabuleiro 2
         document.getElementById("pontuacaoTabuleiro2").textContent = pontuacaoTabuleiro2;
     }
 }
 
 // Função para criar uma jogada automática do jogador robô
 function jogadaAutomatica() {
+    // Verifica se o jogo está rodando e se é a vez do jogador 1
     if (!jogoRodando || jogadorAtual !== "1") {
         return;
     }
 
+    // Obtém as células e opções do Tabuleiro 1
     const cells = cellsTabuleiro1;
     const opcoes = opcoesTabuleiro1;
 
     let indiceAleatorio;
+
+    // Escolhe aleatoriamente uma célula não selecionada
     do {
         indiceAleatorio = Math.floor(Math.random() * 9);
     } while (opcoes[indiceAleatorio] !== "");
 
+    // Gera um valor aleatório para simular o lançamento do dado
     const valorSorteado = Math.floor(Math.random() * 6) + 1;
 
-    // Simula um clique na célula automaticamente
+    // Simula um clique na célula automaticamente, usando a função updateCell
     updateCell(cells[indiceAleatorio], indiceAleatorio, valorSorteado, opcoes);
+
+    // Verifica se há um vencedor após a jogada automática
     checaVencedor(opcoes);
+
+    // Muda a vez, pois a jogada automática é para o jogador 1
     mudarVez();
 }
 
