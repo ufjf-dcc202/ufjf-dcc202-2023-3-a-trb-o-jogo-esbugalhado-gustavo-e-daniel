@@ -1,9 +1,8 @@
 .cell{
-   width: 75px;
-   height: 75px;
-   border: 2px solid;
+   width: 50px;
+   height: 50px;
+   border: 1px solid;
    box-shadow: 0 0 0 2px;
-   line-height: 75px;
    font-size: 50px;
    cursor: pointer;
 }
@@ -11,18 +10,17 @@
 #cellConteudo{
   display: grid;
   grid-template-columns: repeat(3, auto);
-  width: 225px;
+  width: 100%;
   margin: auto;
 }
 
 
 body {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  margin: 0;
-  justify-content: space-around;
-  
-  margin: 0;
+  justify-content: center;
+  /*height: 100vh; /* Ocupa a altura total da viewport */
 }
 
 #jogoEsbugalhado1 {
@@ -43,10 +41,14 @@ body {
   margin: 0;
 }
 
+#jogoEsbugalhado1,
+.infoJogo,
+#jogoEsbugalhado2 {
+  text-align: center;
+}
+
 .infoJogo{
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
+  margin-top: 20px;  
   align-items: center;
   justify-content: space-around; /* Espaçamento automático entre os elementos */
   background-color: #f0f0f0; /* Cor de fundo da div */
@@ -57,10 +59,14 @@ body {
 
 .botoes {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 
+
 .infoJogo button {
+  align-items: center;
   padding: 5px; /* Adicione preenchimento aos botões conforme necessário */
   font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
   background-color: #4caf50; /* Cor de fundo dos botões */
