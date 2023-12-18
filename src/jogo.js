@@ -11,7 +11,15 @@ let jogoRodando = false;
 const jogadores = ['Ratau', 'Cordeiro']
 let jogadorAtualIndex = 0; // Inicia com o primeiro jogador
 textoSobre.textContent = `Vez de ${jogadores[jogadorAtualIndex]} jogar`;
+
 var audio = document.getElementById("myAudio");//Para o som do game
+// Adiciona um ouvinte de evento para o evento 'ended'
+audio.addEventListener('ended', function () {
+    // Reinicia a reprodução quando a música terminar
+    audio.currentTime = 0; // Define o tempo de reprodução de volta para o início
+    audio.play();
+});
+
 const rodarDado2Btn = document.querySelector("#rodarDado2");
 rodarDado2Btn.addEventListener("click", () => rodarDado(2));
 
@@ -132,8 +140,8 @@ function mudarVez() {
         textoSobre.textContent = `Jogo encerrado. Clique em Reiniciar.`;
     }
 }
-
-function checaVencedor(opcoes) {
+// Função para checar vencedor
+function checaVencedor() {
     const tabuleiroCompleto = opcoesTabuleiro1.every(opcao => opcao !== "") || opcoesTabuleiro2.every(opcao => opcao !== "");
 
     // Verifica se o tabuleiro está completo
@@ -143,6 +151,7 @@ function checaVencedor(opcoes) {
     }
 }
 
+// Função para encerrar o jogo caso o tabuleiro de algum esteja completo
 function encerrarJogo() {
     jogoRodando = false; // O jogo não está mais rodando
 
@@ -234,10 +243,3 @@ function iniciaJogo() {
 }
 
 iniciaJogo();
-
-// Adiciona um ouvinte de evento para o evento 'ended'
-audio.addEventListener('ended', function () {
-    // Reinicia a reprodução quando a música terminar
-    audio.currentTime = 0; // Define o tempo de reprodução de volta para o início
-    audio.play();
-});
