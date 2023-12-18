@@ -1,4 +1,3 @@
-
 const cellsTabuleiro1 = document.querySelectorAll("#jogoEsbugalhado1 .cell");
 const cellsTabuleiro2 = document.querySelectorAll("#jogoEsbugalhado2 .cell");
 const textoSobre = document.querySelector("#textoSobre");
@@ -9,25 +8,16 @@ let pontuacaoTabuleiro1 = 0;
 let pontuacaoTabuleiro2 = 0;
 let jogadorAtual = "1";
 let jogoRodando = false;
-const jogadores = ['Ratau', 'Cordeiro'];
+const jogadores = ['Ratau', 'Cordeiro']
 let jogadorAtualIndex = 0; // Inicia com o primeiro jogador
 textoSobre.textContent = `Vez de ${jogadores[jogadorAtualIndex]} jogar`;
-var audio = document.getElementById("myAudio"); // Para o som do game
-
-// Adiciona um ouvinte de evento para o evento 'ended'
-audio.addEventListener('ended', function () {
-    // Reinicia a reprodução quando a música terminar
-    audio.currentTime = 0; // Define o tempo de reprodução de volta para o início
-    audio.play();
-});
-
+var audio = document.getElementById("myAudio");//Para o som do game
 const rodarDado1Btn = document.querySelector("#rodarDado1");
 rodarDado1Btn.addEventListener("click", () => rodarDado(1));
-
 const rodarDado2Btn = document.querySelector("#rodarDado2");
 rodarDado2Btn.addEventListener("click", () => rodarDado(2));
 
-// Função responsável por rodar o dado dos tabuleiros
+// Função responsável para rodar o dado dos tabuleiros
 function rodarDado(tabuleiro) {
     // Verifica se o jogo está rodando, se não estiver, a função retorna sem fazer nada
     if (!jogoRodando) {
@@ -43,15 +33,6 @@ function rodarDado(tabuleiro) {
     // Determina as células e opções do tabuleiro com base no argumento "tabuleiro"
     const cells = (tabuleiro === 1) ? cellsTabuleiro1 : cellsTabuleiro2;
     const opcoes = (tabuleiro === 1) ? opcoesTabuleiro1 : opcoesTabuleiro2;
-
-    // Limpa a coluna correspondente no outro tabuleiro
-    const otherTabuleiro = (tabuleiro === 1) ? cellsTabuleiro2 : cellsTabuleiro1;
-    const otherOpcoes = (tabuleiro === 1) ? opcoesTabuleiro2 : opcoesTabuleiro1;
-    otherTabuleiro.forEach((cell, index) => {
-        const otherIndex = (tabuleiro === 1) ? (index % 3 === valorSorteado - 1) : Math.floor(index / 3) * 3 + (valorSorteado - 1);
-        otherOpcoes[otherIndex] = "";
-        cell.textContent = "";
-    });
 
     // Adiciona um evento de clique a cada célula do tabuleiro
     cells.forEach((cell, index) => {
@@ -80,7 +61,6 @@ function updateCell(cell, index, valor, opcoes) {
     // Define o conteúdo da célula como o valor sorteado
     cell.textContent = valor;
 
-    // Atualiza a pontuação do tabuleiro correspondente
     // Atualiza a pontuação do tabuleiro correspondente
     if (jogadorAtual === "1") {
         // Se o jogador atual for o jogador 1, atualiza a pontuação do Tabuleiro 1
@@ -132,7 +112,7 @@ function jogadaAutomatica() {
 function mudarVez() {
     jogadorAtualIndex = (jogadorAtualIndex === 0) ? 1 : 0;
     jogadorAtual = (jogadorAtualIndex === 0) ? "1" : "2";
-    textoSobre.textContent = `Vez do ${jogadores[jogadorAtualIndex]} jogar`;
+    textoSobre.textContent = `Vez do ${jogadores[jogadorAtualIndex]} Cordeiro`;
 
     if (jogadorAtual === "1") {
         jogadaAutomatica(); // Chama a jogada automática quando for a vez do jogador automático
@@ -157,6 +137,7 @@ function checaVencedor(opcoes) {
             mensagemVencedor.textContent = "Empate!";
         }
     }
+
 }
 
 // Função para reiniciar o jogo quando o botão é pressionado no index.html
@@ -186,7 +167,7 @@ function reiniciarJogo() {
     document.getElementById("pontuacaoTabuleiro2").textContent = pontuacaoTabuleiro2;
 
     // Atualiza o texto sobre
-    textoSobre.textContent = `Vez do jogador cordeiro ${jogadorAtual}`;
+    textoSobre.textContent = `Vez do jogador ${jogadorAtual}`;
 }
 
 // Função responsável por dar os cliques nas células
@@ -228,3 +209,10 @@ function iniciaJogo() {
 }
 
 iniciaJogo();
+
+// Adiciona um ouvinte de evento para o evento 'ended'
+audio.addEventListener('ended', function () {
+    // Reinicia a reprodução quando a música terminar
+    audio.currentTime = 0; // Define o tempo de reprodução de volta para o início
+    audio.play();
+});
