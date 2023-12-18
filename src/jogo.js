@@ -11,7 +11,7 @@ let jogoRodando = false;
 const jogadores = ['Ratau', 'Cordeiro']
 let jogadorAtualIndex = 0; // Inicia com o primeiro jogador
 textoSobre.textContent = `Vez de ${jogadores[jogadorAtualIndex]} jogar`;
-var audio = document.getElementById("myAudio");//Para o som do game
+var audio = document.getElementById("myAudio"); // Para o som do game
 const rodarDado1Btn = document.querySelector("#rodarDado1");
 rodarDado1Btn.addEventListener("click", () => rodarDado(1));
 const rodarDado2Btn = document.querySelector("#rodarDado2");
@@ -42,7 +42,7 @@ function rodarDado(tabuleiro) {
                 return;
             }
             // Atualiza a célula com base no valor sorteado e nas opções do tabuleiro
-            updateCell(this, index, valorSorteado, opcoes);
+            updateCell(this, index, valorSorteado, opcoes, tabuleiro);
 
             // Verifica se há um vencedor após a atualização da célula
             checaVencedor(opcoes);
@@ -54,7 +54,7 @@ function rodarDado(tabuleiro) {
 }
 
 // Função de atualização da pontuação dos tabuleiros
-function updateCell(cell, index, valor, opcoes) {
+function updateCell(cell, index, valor, opcoes, tabuleiro) {
     // Define o valor da célula no array de opções como o jogador atual
     opcoes[index] = jogadorAtual;
 
@@ -66,11 +66,27 @@ function updateCell(cell, index, valor, opcoes) {
         // Se o jogador atual for o jogador 1, atualiza a pontuação do Tabuleiro 1
         pontuacaoTabuleiro1 += valor;
 
+        // Verifica se o valor já existe na coluna correspondente do Tabuleiro 2
+        const colunaTabuleiro2 = index % 3; // Calcula a coluna no Tabuleiro 2
+        for (let i = 0; i < 3; i++) {
+            const colunaIndex = i * 3 + colunaTabuleiro2; // Obtém o índice correspondente na coluna do Tabuleiro 2
+            opcoesTabuleiro2[colunaIndex] = ""; // Define como espaço vazio
+            cellsTabuleiro2[colunaIndex].textContent = ""; // Limpa o conteúdo visual
+        }
+
         // Atualiza o elemento HTML exibindo a pontuação do Tabuleiro 1
         document.getElementById("pontuacaoTabuleiro1").textContent = pontuacaoTabuleiro1;
     } else {
         // Se o jogador atual não for o jogador 1, atualiza a pontuação do Tabuleiro 2
         pontuacaoTabuleiro2 += valor;
+
+        // Verifica se o valor já existe na coluna correspondente do Tabuleiro 1
+        const colunaTabuleiro1 = index % 3; // Calcula a coluna no Tabuleiro 1
+        for (let i = 0; i < 3; i++) {
+            const colunaIndex = i * 3 + colunaTabuleiro1; // Obtém o índice correspondente na coluna do Tabuleiro 1
+            opcoesTabuleiro1[colunaIndex] = ""; // Define como espaço vazio
+            cellsTabuleiro1[colunaIndex].textContent = ""; // Limpa o conteúdo visual
+        }
 
         // Atualiza o elemento HTML exibindo a pontuação do Tabuleiro 2
         document.getElementById("pontuacaoTabuleiro2").textContent = pontuacaoTabuleiro2;
@@ -99,119 +115,102 @@ function jogadaAutomatica() {
     const valorSorteado = Math.floor(Math.random() * 6) + 1;
 
     // Simula um clique na célula automaticamente, usando a função updateCell
-    updateCell(cells[indiceAleatorio], indiceAleatorio, valorSorteado, opcoes);
-
-    // Verifica se há um vencedor após a jogada automática
-    checaVencedor(opcoes);
-
-    // Muda a vez, pois a jogada automática é para o jogador 1
-    mudarVez();
-}
-
-// Função que muda a vez dos jogadores 
-function mudarVez() {
-    jogadorAtualIndex = (jogadorAtualIndex === 0) ? 1 : 0;
-    jogadorAtual = (jogadorAtualIndex === 0) ? "1" : "2";
-    textoSobre.textContent = `Vez do ${jogadores[jogadorAtualIndex]} jogar`;
-
-    if (jogadorAtual === "1") {
-        jogadaAutomatica(); // Chama a jogada automática quando for a vez do jogador automático
+    updateCell(cells[indiceAleatorio], indiceAleatorio, valorSorteado, opcoes, 1);
     }
-}
-
-function checaVencedor(opcoes) {
-    const somaPontuacaoTabuleiro1 = pontuacaoTabuleiro1;
-    const somaPontuacaoTabuleiro2 = pontuacaoTabuleiro2;
-
-    // Verifica se há um vencedor comparando as pontuações dos tabuleiros
-    if (somaPontuacaoTabuleiro1 >= 40 || somaPontuacaoTabuleiro2 >= 40) {
-        jogoRodando = false; // O jogo não está mais rodando
-
-        // Exibe a mensagem de vitória
-        const mensagemVencedor = document.getElementById("mensagemVencedor");
-        if (somaPontuacaoTabuleiro1 > somaPontuacaoTabuleiro2) {
-            mensagemVencedor.textContent = "Ratau venceu!";
-        } else if (somaPontuacaoTabuleiro1 < somaPontuacaoTabuleiro2) {
-            mensagemVencedor.textContent = "Cordeiro venceu!";
-        } else {
-            mensagemVencedor.textContent = "Empate!";
+    // Verifica se há um vencedor após a jogada automática
+    function checaVencedor(opcoes) {
+        const somaPontuacaoTabuleiro1 = pontuacaoTabuleiro1;
+        const somaPontuacaoTabuleiro2 = pontuacaoTabuleiro2;
+    
+        // Verifica se há um vencedor comparando as pontuações dos tabuleiros
+        if (somaPontuacaoTabuleiro1 >= 40 || somaPontuacaoTabuleiro2 >= 40) {
+            jogoRodando = false; // O jogo não está mais rodando
+    
+            // Exibe a mensagem de vitória
+            const mensagemVencedor = document.getElementById("mensagemVencedor");
+            if (somaPontuacaoTabuleiro1 > somaPontuacaoTabuleiro2) {
+                mensagemVencedor.textContent = "Ratau venceu!";
+            } else if (somaPontuacaoTabuleiro1 < somaPontuacaoTabuleiro2) {
+                mensagemVencedor.textContent = "Cordeiro venceu!";
+            } else {
+                mensagemVencedor.textContent = "Empate!";
+            }
         }
     }
-
-}
-
-// Função para reiniciar o jogo quando o botão é pressionado no index.html
-function reiniciarJogo() {
-    opcoesTabuleiro1 = ["", "", "", "", "", "", "", "", ""];
-    opcoesTabuleiro2 = ["", "", "", "", "", "", "", "", ""];
-
-    jogadorAtual = "2";
-    jogoRodando = true;
-
-    // Limpa o conteúdo das células do Tabuleiro 1 e reinicia a pontuação
-    cellsTabuleiro1.forEach(cell => {
-        cell.textContent = "";
-        cell.removeEventListener("click", cellClicked);
-        cell.addEventListener("click", cellClicked);
-    });
-    pontuacaoTabuleiro1 = 0;
-    document.getElementById("pontuacaoTabuleiro1").textContent = pontuacaoTabuleiro1;
-
-    // Limpa o conteúdo das células do Tabuleiro 2 e reinicia a pontuação
-    cellsTabuleiro2.forEach(cell => {
-        cell.textContent = "";
-        cell.removeEventListener("click", cellClicked);
-        cell.addEventListener("click", cellClicked);
-    });
-    pontuacaoTabuleiro2 = 0;
-    document.getElementById("pontuacaoTabuleiro2").textContent = pontuacaoTabuleiro2;
-
-    // Atualiza o texto sobre
-    textoSobre.textContent = `Vez do jogador ${jogadorAtual}`;
-}
-
-// Função responsável por dar os cliques nas células
-function cellClicked() {
-    const cellIndex = parseInt(this.getAttribute("cellIndex"));
-
-    if (!jogoRodando) {
-        return;
+    
+    // Função para reiniciar o jogo quando o botão é pressionado no index.html
+    function reiniciarJogo() {
+        opcoesTabuleiro1 = ["", "", "", "", "", "", "", "", ""];
+        opcoesTabuleiro2 = ["", "", "", "", "", "", "", "", ""];
+    
+        jogadorAtual = "2";
+        jogoRodando = true;
+    
+        // Limpa o conteúdo das células do Tabuleiro 1 e reinicia a pontuação
+        cellsTabuleiro1.forEach(cell => {
+            cell.textContent = "";
+            cell.removeEventListener("click", cellClicked);
+            cell.addEventListener("click", cellClicked);
+        });
+        pontuacaoTabuleiro1 = 0;
+        document.getElementById("pontuacaoTabuleiro1").textContent = pontuacaoTabuleiro1;
+    
+        // Limpa o conteúdo das células do Tabuleiro 2 e reinicia a pontuação
+        cellsTabuleiro2.forEach(cell => {
+            cell.textContent = "";
+            cell.removeEventListener("click", cellClicked);
+            cell.addEventListener("click", cellClicked);
+        });
+        pontuacaoTabuleiro2 = 0;
+        document.getElementById("pontuacaoTabuleiro2").textContent = pontuacaoTabuleiro2;
+    
+        // Atualiza o texto sobre
+        textoSobre.textContent = `Vez do jogador cordeiro ${jogadorAtual}`;
     }
-
-    const tabuleiro = this.closest("#jogoEsbugalhado1") ? 1 : 2;
-    const cells = (tabuleiro === 1) ? cellsTabuleiro1 : cellsTabuleiro2;
-    const opcoes = (tabuleiro === 1) ? opcoesTabuleiro1 : opcoesTabuleiro2;
-
-    if (opcoes[cellIndex] !== "") {
-        return;
+    
+    // Função responsável por dar os cliques nas células
+    function cellClicked() {
+        const cellIndex = parseInt(this.getAttribute("cellIndex"));
+    
+        if (!jogoRodando) {
+            return;
+        }
+    
+        const tabuleiro = this.closest("#jogoEsbugalhado1") ? 1 : 2;
+        const cells = (tabuleiro === 1) ? cellsTabuleiro1 : cellsTabuleiro2;
+        const opcoes = (tabuleiro === 1) ? opcoesTabuleiro1 : opcoesTabuleiro2;
+    
+        if (opcoes[cellIndex] !== "") {
+            return;
+        }
+    
+        const valorSorteadoText = textoSobre.textContent.match(/\d+/); // Extrai o valor numérico usando expressão regular
+        const valorSorteado = valorSorteadoText ? parseInt(valorSorteadoText[0]) : 0;
+    
+        updateCell(this, cellIndex, valorSorteado, opcoes, tabuleiro);
+        checaVencedor(opcoes);
+        mudarVez();
+    
+        this.removeEventListener("click", cellClicked);
     }
-
-    const valorSorteadoText = textoSobre.textContent.match(/\d+/); // Extrai o valor numérico usando expressão regular
-    const valorSorteado = valorSorteadoText ? parseInt(valorSorteadoText[0]) : 0;
-
-    updateCell(this, cellIndex, valorSorteado, opcoes);
-    checaVencedor(opcoes);
-    mudarVez();
-
-    this.removeEventListener("click", cellClicked);
-}
-
-// Função que inicia o jogo
-function iniciaJogo() {
-    cellsTabuleiro1.forEach(cell => cell.addEventListener("click", cellClicked));
-    cellsTabuleiro2.forEach(cell => cell.addEventListener("click", cellClicked));
-    reiniciarBtn.addEventListener("click", reiniciarJogo);
-
-    jogoRodando = true;
-
-    // Inicia o jogo com a jogada automática
-    mudarVez();
-}
-// Adiciona um ouvinte de evento para o evento 'ended'
-audio.addEventListener('ended', function () {
-    // Reinicia a reprodução quando a música terminar
-    audio.currentTime = 0; // Define o tempo de reprodução de volta para o início
-    audio.play();
-});
-
-iniciaJogo();
+    
+    // Função que inicia o jogo
+    function iniciaJogo() {
+        cellsTabuleiro1.forEach(cell => cell.addEventListener("click", cellClicked));
+        cellsTabuleiro2.forEach(cell => cell.addEventListener("click", cellClicked));
+        reiniciarBtn.addEventListener("click", reiniciarJogo);
+    
+        jogoRodando = true;
+    
+        // Inicia o jogo com a jogada automática
+        mudarVez();
+    }
+    // Adiciona um ouvinte de evento para o evento 'ended'
+    audio.addEventListener('ended', function () {
+        // Reinicia a reprodução quando a música terminar
+        audio.currentTime = 0; // Define o tempo de reprodução de volta para o início
+        audio.play();
+    });
+    
+    iniciaJogo();
+    
