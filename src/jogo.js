@@ -116,14 +116,14 @@ function mudarVez() {
 }
 
 function checaVencedor(opcoes) {
-    
+
 }
 
 // Função para reiniciar o jogo quando o botão é pressionado no index.html
 function reiniciarJogo() {
     opcoesTabuleiro1 = ["", "", "", "", "", "", "", "", ""];
     opcoesTabuleiro2 = ["", "", "", "", "", "", "", "", ""];
-    
+
     jogadorAtual = "1";
     jogoRodando = true;
 
@@ -188,3 +188,13 @@ function iniciaJogo() {
 }
 
 iniciaJogo();
+
+
+var audio = document.getElementById("myAudio");
+
+// Adiciona um ouvinte de evento para o evento 'ended'
+audio.addEventListener('ended', function () {
+    // Reinicia a reprodução quando a música terminar
+    audio.currentTime = 0; // Define o tempo de reprodução de volta para o início
+    audio.play();
+});

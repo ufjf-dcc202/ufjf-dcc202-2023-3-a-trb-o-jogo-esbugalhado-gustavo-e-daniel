@@ -53,7 +53,7 @@ body {
 }
 
 .infoJogo{
-  margin-top: 20px;  
+  margin-top: -80px;  
   align-items: center;
   justify-content: space-around; /* Espaçamento automático entre os elementos */
   /*background-color: #ffffff; /* Cor de fundo da div */
@@ -100,4 +100,33 @@ body {
   text-align: center;
   margin: 0;
   margin-top: px;
+}
+
+#pontuacao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px; /* Ajuste conforme necessário */
+}
+
+#ratau {
+  max-width: 100px; /* Ajuste conforme necessário */
+  height: auto;
+  margin-left: -40px;
+}
+
+#cordeiro {
+  max-width: 100px; /* Ajuste conforme necessário */
+  height: auto;
+  margin-left: 570px;
+}
+
+#pontuacaoTabuleiroesquerdo {
+  text-align: center;
+  margin-left: -50px;
+}
+
+#pontuacaoTabuleirodireito {
+  text-align: center;
+  margin-left: 550px;
 }
