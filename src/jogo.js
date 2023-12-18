@@ -207,12 +207,11 @@ function iniciaJogo() {
     // Inicia o jogo com a jogada automática
     mudarVez();
 }
-
-iniciaJogo();
-
 // Adiciona um ouvinte de evento para o evento 'ended'
 audio.addEventListener('ended', function () {
     // Reinicia a reprodução quando a música terminar
     audio.currentTime = 0; // Define o tempo de reprodução de volta para o início
     audio.play();
 });
+
+iniciaJogo();
