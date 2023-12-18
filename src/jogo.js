@@ -8,6 +8,9 @@ let pontuacaoTabuleiro1 = 0;
 let pontuacaoTabuleiro2 = 0;
 let jogadorAtual = "1";
 let jogoRodando = false;
+const jogadores = ['Ratau', 'Cordeiro']
+let jogadorAtualIndex = 0; // Inicia com o primeiro jogador
+textoSobre.textContent = `Vez de ${jogadores[jogadorAtualIndex]} jogar`;
 var audio = document.getElementById("myAudio");//Para o som do game
 const rodarDado1Btn = document.querySelector("#rodarDado1");
 rodarDado1Btn.addEventListener("click", () => rodarDado(1));
@@ -107,8 +110,9 @@ function jogadaAutomatica() {
 
 // Função que muda a vez dos jogadores 
 function mudarVez() {
-    jogadorAtual = (jogadorAtual === "1") ? "2" : "1";
-    textoSobre.textContent = `Vez do jogador ${jogadorAtual}`;
+    jogadorAtualIndex = (jogadorAtualIndex === 0) ? 1 : 0;
+    jogadorAtual = (jogadorAtualIndex === 0) ? "1" : "2";
+    textoSobre.textContent = `Vez do ${jogadores[jogadorAtualIndex]} jogar`;
 
     if (jogadorAtual === "1") {
         jogadaAutomatica(); // Chama a jogada automática quando for a vez do jogador automático
@@ -116,6 +120,23 @@ function mudarVez() {
 }
 
 function checaVencedor(opcoes) {
+    const somaPontuacaoTabuleiro1 = pontuacaoTabuleiro1;
+    const somaPontuacaoTabuleiro2 = pontuacaoTabuleiro2;
+
+    // Verifica se há um vencedor comparando as pontuações dos tabuleiros
+    if (somaPontuacaoTabuleiro1 >= 40 || somaPontuacaoTabuleiro2 >= 40) {
+        jogoRodando = false; // O jogo não está mais rodando
+
+        // Exibe a mensagem de vitória
+        const mensagemVencedor = document.getElementById("mensagemVencedor");
+        if (somaPontuacaoTabuleiro1 > somaPontuacaoTabuleiro2) {
+            mensagemVencedor.textContent = "Ratau venceu!";
+        } else if (somaPontuacaoTabuleiro1 < somaPontuacaoTabuleiro2) {
+            mensagemVencedor.textContent = "Cordeiro venceu!";
+        } else {
+            mensagemVencedor.textContent = "Empate!";
+        }
+    }
 
 }
 
@@ -124,7 +145,7 @@ function reiniciarJogo() {
     opcoesTabuleiro1 = ["", "", "", "", "", "", "", "", ""];
     opcoesTabuleiro2 = ["", "", "", "", "", "", "", "", ""];
 
-    jogadorAtual = "1";
+    jogadorAtual = "2";
     jogoRodando = true;
 
     // Limpa o conteúdo das células do Tabuleiro 1 e reinicia a pontuação
