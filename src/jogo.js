@@ -232,7 +232,6 @@ function cellClicked() {
 
 // Função que inicia o jogo
 function iniciaJogo() {
-    cellsTabuleiro1.forEach(cell => cell.addEventListener("click", cellClicked));
     cellsTabuleiro2.forEach(cell => cell.addEventListener("click", cellClicked));
     reiniciarBtn.addEventListener("click", reiniciarJogo);
 
