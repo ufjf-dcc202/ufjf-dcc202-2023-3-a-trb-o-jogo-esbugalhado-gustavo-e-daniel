@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esbugalhado o Jogo</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="src/jogo.js" type="module"></script>
+</head>
+
+<body>
+    <!-- Tag de Audio do Game, tem a função que reinicia ela automaticamente em jogo.js -->
+    <audio id='myAudio' autoplay>
+        <source src="/audio/game.mp3" type="audio/mp3">
+    </audio>
+
+    <h2>Esbugalhado o Jogo</h2>
+    <div id="textoJogoSobre">
+        Beto Carneiro encontrou um pequeno rato falante que apelidou de Ratão. Ratão convenceu o Carneiro a jogar um
+        jogo de dados bem diferente, chamado Esbugalhado, valendo todo o queijo que ele tem. Depois de perder todo o
+        queijo que
+        tinha, Carneiro ficou muito intrigado com o jogo e contratou você para programar uma aplicação web que
+        implementasse o jogo. Daí anotou as seguintes regras:
+        <ol>
+            <li>
+                Cada jogador tem sua área de jogo dividida em três colunas, com três linhas cada, totalizando 9 casas;
+            </li>
+            <li>
+                O objetivo do jogo é ter uma soma de pontos maior que a do oponente ao final da partida, colocando dados
+                nessas
+                casas vazias;
+            </li>
+            <li>
+                Os jogadores se alternam, rolando um dado e colocando ele em suas áreas de jogo;
+            </li>
+            <li>
+                O total de pontos de cada jogador é dado basicamente pela soma dos valores dos dados, com a seguinte
+                diferença:
+                A soma da coluna é igual ao valor do dado, multiplicado pela quantidade de dados de mesmo valor nesta
+                coluna.
+                Por
+                exemplo, uma coluna com 1-2-1 vale 1x2 + 2x1 + 1x2 = 6; uma com 1-1-1 = 1x3 + 1x3 + 1x3 = 9; um coluna
+                com 6-6-3
+                vale 6x2 + 6x2 + 3x1 = 25;
+            </li>
+            <li>
+                Sempre que um jogador posicionar um dado em uma coluna, descarte todos os dados da coluna correspondente
+                na área
+                do
+                oponente, que tenham um mesmo valor;
+            </li>
+            <li>
+                A partida é encerrada quando um jogador cobrir todas as 9 casas de sua área de jogo com dados.
+            </li>
+        </ol>
+    </div>
+
+    <h2>Funcionalidades Implementadas</h2>
+    <ol>
+        <li>Tabuleiro para cada um dos jogadores;</li>
+        <li>Função de rolar o dado;</li>
+        <li>Função para mudar a vez do jogador;</li>
+        <li></li>
+        <li></li>
+    </ol>
+
+    <h2>Funcionalidades que faltam</h2>
+    <ol>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ol>
+
+
+    <div id="desenvolvedor">Gustavo Costa Miguel | <a href='sobre.html'>O que é o jogo da bugalha?</a> | <a
+            href='index.html'>Início</a></div>
+
+</body>
+
+</html>

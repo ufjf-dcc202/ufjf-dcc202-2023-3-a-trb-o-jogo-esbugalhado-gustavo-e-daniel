@@ -131,3 +131,26 @@ body {
   text-align: center;
   margin-left: 550px;
 }
+
+#desenvolvedor{
+  margin-top: 20px;
+}
+#desenvolvedor{
+  color: #333;
+}
+#desenvolvedor a{
+  color: #333;
+  text-decoration: none;
+}
+
+#apresentacao h4{
+  color: #333;
+  font-size: 20px;
+  margin-bottom: -30px;
+}
+
+#textoJogoSobre{
+  width: 80%;
+  text-align: justify;
+
+}
