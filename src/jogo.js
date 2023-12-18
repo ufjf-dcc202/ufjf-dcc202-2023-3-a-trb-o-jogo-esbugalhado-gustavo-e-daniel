@@ -8,7 +8,7 @@ let pontuacaoTabuleiro1 = 0;
 let pontuacaoTabuleiro2 = 0;
 let jogadorAtual = "1";
 let jogoRodando = false;
-
+var audio = document.getElementById("myAudio");//Para o som do game
 const rodarDado1Btn = document.querySelector("#rodarDado1");
 rodarDado1Btn.addEventListener("click", () => rodarDado(1));
 const rodarDado2Btn = document.querySelector("#rodarDado2");
@@ -188,9 +188,6 @@ function iniciaJogo() {
 }
 
 iniciaJogo();
-
-
-var audio = document.getElementById("myAudio");
 
 // Adiciona um ouvinte de evento para o evento 'ended'
 audio.addEventListener('ended', function () {
