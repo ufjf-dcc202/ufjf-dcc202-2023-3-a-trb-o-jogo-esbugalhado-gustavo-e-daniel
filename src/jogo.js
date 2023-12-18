@@ -110,8 +110,8 @@ function jogadaAutomatica() {
 function mudarVez() {
     jogadorAtualIndex = (jogadorAtualIndex === 0) ? 1 : 0;
     jogadorAtual = (jogadorAtualIndex === 0) ? "1" : "2";
-    textoSobre.textContent = `Vez do ${jogadores[jogadorAtualIndex]} Cordeiro`;
-    
+    textoSobre.textContent = `Vez do ${jogadores[jogadorAtualIndex]}`;
+
 
     // Desabilita o clique nas células do jogador 2 na tabela 1
     if (jogadorAtual === "2") {
@@ -127,27 +127,38 @@ function mudarVez() {
         // Executa a jogada automática quando for a vez do jogador automático (jogador 1)
         jogadaAutomatica();
     }
+
+    if (jogoRodando == false) {
+        textoSobre.textContent = `Jogo encerrado. Clique em Reiniciar.`;
+    }
 }
 
 function checaVencedor(opcoes) {
-    const somaPontuacaoTabuleiro1 = pontuacaoTabuleiro1;
-    const somaPontuacaoTabuleiro2 = pontuacaoTabuleiro2;
+    const tabuleiroCompleto = opcoesTabuleiro1.every(opcao => opcao !== "") || opcoesTabuleiro2.every(opcao => opcao !== "");
 
-    // Verifica se há um vencedor comparando as pontuações dos tabuleiros
-    if (somaPontuacaoTabuleiro1 >= 40 || somaPontuacaoTabuleiro2 >= 40) {
-        jogoRodando = false; // O jogo não está mais rodando
+    // Verifica se o tabuleiro está completo
+    if (tabuleiroCompleto) {
+        encerrarJogo(); // Chama a função para encerrar o jogo
 
-        // Exibe a mensagem de vitória
-        const mensagemVencedor = document.getElementById("mensagemVencedor");
-        if (somaPontuacaoTabuleiro1 > somaPontuacaoTabuleiro2) {
-            mensagemVencedor.textContent = "Ratau venceu!";
-        } else if (somaPontuacaoTabuleiro1 < somaPontuacaoTabuleiro2) {
-            mensagemVencedor.textContent = "Cordeiro venceu!";
-        } else {
-            mensagemVencedor.textContent = "Empate!";
-        }
     }
+}
 
+function encerrarJogo() {
+    jogoRodando = false; // O jogo não está mais rodando
+
+    // Exibe a mensagem de vitória
+    const mensagemVencedor = document.getElementById("mensagemVencedor");
+    if (pontuacaoTabuleiro1 > pontuacaoTabuleiro2) {
+        mensagemVencedor.textContent = "Ratau venceu!";
+        textoSobre.textContent = `Jogo encerrado. Clique em Reiniciar.`;
+    } else if (pontuacaoTabuleiro1 < pontuacaoTabuleiro2) {
+        mensagemVencedor.textContent = "Cordeiro venceu!";
+        // Atualiza o texto sobre
+        textoSobre.textContent = `Jogo encerrado. Clique em Reiniciar.`;
+    } else {
+        mensagemVencedor.textContent = "Empate!";
+        textoSobre.textContent = `Jogo encerrado. Clique em Reiniciar.`;
+    }
 }
 
 // Função para reiniciar o jogo quando o botão é pressionado no index.html
@@ -157,6 +168,10 @@ function reiniciarJogo() {
 
     jogadorAtual = "2";
     jogoRodando = true;
+
+    // Atualiza mensagem do jogador vencedor para vazio
+    const mensagemVencedor = document.getElementById("mensagemVencedor");
+    mensagemVencedor.textContent = "";
 
     // Limpa o conteúdo das células do Tabuleiro 1 e reinicia a pontuação
     cellsTabuleiro1.forEach(cell => {
@@ -178,7 +193,6 @@ function reiniciarJogo() {
 
     // Atualiza o texto sobre
     textoSobre.textContent = `Vez do jogador ${jogadorAtual}`;
-    
 }
 
 // Função responsável por dar os cliques nas células
