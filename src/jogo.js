@@ -6,7 +6,9 @@ let opcoesTabuleiro1 = ["", "", "", "", "", "", "", "", ""];
 let opcoesTabuleiro2 = ["", "", "", "", "", "", "", "", ""];
 let pontuacaoTabuleiro1 = 0;
 let pontuacaoTabuleiro2 = 0;
-let jogadorAtual = "1";
+let somaColunasTotalTabuleiro1 = [0, 0, 0];
+let somaColunasTotalTabuleiro2 = [0, 0, 0];
+let jogadorAtual = "2";
 let jogoRodando = false;
 const jogadores = ['Ratau', 'Cordeiro']
 let jogadorAtualIndex = 0; // Inicia com o primeiro jogador
@@ -67,20 +69,77 @@ function updateCell(cell, index, valor, opcoes) {
     // Define o conteúdo da célula como o valor sorteado
     cell.textContent = valor;
 
+    // Determina as células e opções do tabuleiro com base no jogador atual
+    const cells = (jogadorAtual === "1") ? cellsTabuleiro1 : cellsTabuleiro2;
+    const opcoesTabuleiro = (jogadorAtual === "1") ? opcoesTabuleiro1 : opcoesTabuleiro2;
+
+    // Calcula a pontuação da coluna
+    const pontuacaoColuna = calcularPontuacaoColuna(cells, index, valor, opcoesTabuleiro);
+
+}
+
+function calcularPontuacaoColuna(cells, index, valor, opcoesTabuleiro) {
+    let pontuacaoColuna = 0;
+    const colunaIndex = index % 3; // Obtém o índice da coluna
+
+    // Converte o NodeList para um array
+    const cellsArray = Array.from(cells);
+
+    // Filtra as células pertencentes à coluna
+    const cellsColuna = cellsArray.filter((_, i) => i % 3 === colunaIndex);
+
+    // Cria um array para a coluna e imprime no console
+    const valoresColuna = cellsColuna.map(cell => {
+        const valorCell = parseInt(cell.textContent) || 0;
+        return valorCell;
+    });
+
+    console.log(`Valores da coluna ${colunaIndex + 1} do Tabuleiro ${jogadorAtual}:`, valoresColuna);
+
+    // Verifica a quantidade de vezes que cada número se repete no array e imprime no console
+    const ocorrencias = contarOcorrencias(valoresColuna);
+    console.log(`Quantidade de vezes que cada número se repete na coluna ${colunaIndex + 1} do Tabuleiro ${jogadorAtual}:`, ocorrencias);
+
+    // Calcula a pontuação da coluna multiplicando cada valor pela sua quantidade de ocorrências
+    pontuacaoColuna = valoresColuna.reduce((soma, valor) => soma + valor * ocorrencias[valor], 0);
+    console.log(pontuacaoColuna);
+
+
+    // Atualiza a exibição das somas individuais das colunas para ambos os tabuleiros
+    const somaColunaElement = document.getElementById(`somaTabuleiro${jogadorAtual}Coluna${colunaIndex + 1}`);
+    if (somaColunaElement) {
+        somaColunaElement.textContent = pontuacaoColuna;
+    }
+
     // Atualiza a pontuação do tabuleiro correspondente
     if (jogadorAtual === "1") {
-        // Se o jogador atual for o jogador 1, atualiza a pontuação do Tabuleiro 1
-        pontuacaoTabuleiro1 += valor;
-
-        // Atualiza o elemento HTML exibindo a pontuação do Tabuleiro 1
+        pontuacaoTabuleiro1 += pontuacaoColuna;
+        somaColunasTotalTabuleiro1[colunaIndex] = pontuacaoColuna;
         document.getElementById("pontuacaoTabuleiro1").textContent = pontuacaoTabuleiro1;
     } else {
-        // Se o jogador atual não for o jogador 1, atualiza a pontuação do Tabuleiro 2
-        pontuacaoTabuleiro2 += valor;
-
-        // Atualiza o elemento HTML exibindo a pontuação do Tabuleiro 2
+        pontuacaoTabuleiro2 += pontuacaoColuna;
+        somaColunasTotalTabuleiro2[colunaIndex] = pontuacaoColuna;
         document.getElementById("pontuacaoTabuleiro2").textContent = pontuacaoTabuleiro2;
     }
+
+    const soma1 = somaColunasTotalTabuleiro1.reduce((acumulador, valor) => acumulador + valor, 0);
+    const soma2 = somaColunasTotalTabuleiro2.reduce((acumulador, valor) => acumulador + valor, 0);
+    
+    document.getElementById("pontuacaoTabuleiro1").textContent = soma1;
+    document.getElementById("pontuacaoTabuleiro2").textContent = soma2;
+
+    return pontuacaoColuna;
+}
+
+// Função para contar a quantidade de vezes que cada número se repete no array
+function contarOcorrencias(array) {
+    const ocorrencias = {};
+
+    array.forEach(valor => {
+        ocorrencias[valor] = (ocorrencias[valor] || 0) + 1;
+    });
+
+    return ocorrencias;
 }
 
 // Função para criar uma jogada automática do jogador robô
@@ -140,6 +199,7 @@ function mudarVez() {
         textoSobre.textContent = `Jogo encerrado. Clique em Reiniciar.`;
     }
 }
+
 // Função para checar vencedor
 function checaVencedor() {
     const tabuleiroCompleto = opcoesTabuleiro1.every(opcao => opcao !== "") || opcoesTabuleiro2.every(opcao => opcao !== "");
@@ -190,6 +250,12 @@ function reiniciarJogo() {
     });
     pontuacaoTabuleiro1 = 0;
     document.getElementById("pontuacaoTabuleiro1").textContent = pontuacaoTabuleiro1;
+    document.getElementById("somaTabuleiro1Coluna1").textContent = 0;
+    document.getElementById("somaTabuleiro1Coluna2").textContent = 0;
+    document.getElementById("somaTabuleiro1Coluna3").textContent = 0;
+    document.getElementById("somaTabuleiro2Coluna1").textContent = 0;
+    document.getElementById("somaTabuleiro2Coluna2").textContent = 0;
+    document.getElementById("somaTabuleiro2Coluna3").textContent = 0;
 
     // Limpa o conteúdo das células do Tabuleiro 2 e reinicia a pontuação
     cellsTabuleiro2.forEach(cell => {
