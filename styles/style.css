@@ -24,7 +24,7 @@ body {
   background-size: cover; /* Ajusta o tamanho da imagem para cobrir todo o plano de fundo */
   background-position: center; /* Centraliza a imagem no plano de fundo */
   background-repeat: no-repeat; /* Evita a repetição da imagem */
-  /*height: 100vh; /* Ocupa a altura total da viewport */
+  height: 100vh; /* Ocupa a altura total da viewport */
 }
 
 #jogoEsbugalhado1 {
