@@ -111,6 +111,7 @@ function mudarVez() {
     jogadorAtualIndex = (jogadorAtualIndex === 0) ? 1 : 0;
     jogadorAtual = (jogadorAtualIndex === 0) ? "1" : "2";
     textoSobre.textContent = `Vez do ${jogadores[jogadorAtualIndex]} Cordeiro`;
+    
 
     // Desabilita o clique nas células do jogador 2 na tabela 1
     if (jogadorAtual === "2") {
@@ -177,6 +178,7 @@ function reiniciarJogo() {
 
     // Atualiza o texto sobre
     textoSobre.textContent = `Vez do jogador ${jogadorAtual}`;
+    
 }
 
 // Função responsável por dar os cliques nas células

@@ -14,10 +14,6 @@
   margin: auto;
 }
 
-.tabuleiro-desabilitado {
-  pointer-events: none;
-}
-
 body {
   display: flex;
   flex-direction: column;
@@ -75,7 +71,7 @@ body {
 
 .infoJogo button {
   align-items: center;
-  padding: 5px; /* Adicione preenchimento aos botões conforme necessário */
+  padding: 10px; /* Adicione preenchimento aos botões conforme necessário */
   font-size: 16px; /* Ajuste o tamanho da fonte conforme necessário */
   background-color: #61505a; /* Cor de fundo dos botões */
   color: #fff; /* Cor do texto nos botões */
@@ -104,7 +100,7 @@ body {
   justify-content: center;
   text-align: center;
   margin: 0;
-  margin-top: px;
+  margin-top: 10px;
 }
 
 #pontuacao {
