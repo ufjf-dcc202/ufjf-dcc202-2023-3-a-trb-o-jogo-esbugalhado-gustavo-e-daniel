@@ -12,8 +12,6 @@ const jogadores = ['Ratau', 'Cordeiro']
 let jogadorAtualIndex = 0; // Inicia com o primeiro jogador
 textoSobre.textContent = `Vez de ${jogadores[jogadorAtualIndex]} jogar`;
 var audio = document.getElementById("myAudio");//Para o som do game
-const rodarDado1Btn = document.querySelector("#rodarDado1");
-rodarDado1Btn.addEventListener("click", () => rodarDado(1));
 const rodarDado2Btn = document.querySelector("#rodarDado2");
 rodarDado2Btn.addEventListener("click", () => rodarDado(2));
 
@@ -114,8 +112,19 @@ function mudarVez() {
     jogadorAtual = (jogadorAtualIndex === 0) ? "1" : "2";
     textoSobre.textContent = `Vez do ${jogadores[jogadorAtualIndex]} Cordeiro`;
 
-    if (jogadorAtual === "1") {
-        jogadaAutomatica(); // Chama a jogada automática quando for a vez do jogador automático
+    // Desabilita o clique nas células do jogador 2 na tabela 1
+    if (jogadorAtual === "2") {
+        cellsTabuleiro1.forEach(cell => {
+            cell.removeEventListener("click", cellClicked);
+        });
+    } else {
+        // Habilita o clique nas células do jogador atual
+        cellsTabuleiro1.forEach(cell => {
+            cell.addEventListener("click", cellClicked);
+        });
+
+        // Executa a jogada automática quando for a vez do jogador automático (jogador 1)
+        jogadaAutomatica();
     }
 }
 
