@@ -63,7 +63,7 @@ function rodarDado(tabuleiro) {
             updateCell(this, index, valorSorteado, opcoes);
 
             // Verifica se há um vencedor após a atualização da célula
-            checaVencedor(opcoes);
+            checaVencedor();
 
             // Muda a vez do jogador após a jogada
             mudarVez();
@@ -177,7 +177,7 @@ function jogadaAutomatica() {
     updateCell(cells[indiceAleatorio], indiceAleatorio, valorSorteado, opcoes);
 
     // Verifica se há um vencedor após a jogada automática
-    checaVencedor(opcoes);
+    checaVencedor();
 
     // Muda a vez, pois a jogada automática é para o jogador 1
     mudarVez();
@@ -300,7 +300,7 @@ function cellClicked() {
     const valorSorteado = valorSorteadoText ? parseInt(valorSorteadoText[0]) : 0;
 
     updateCell(this, cellIndex, valorSorteado, opcoes);
-    checaVencedor(opcoes);
+    checaVencedor();
     mudarVez();
 
     this.removeEventListener("click", cellClicked);
