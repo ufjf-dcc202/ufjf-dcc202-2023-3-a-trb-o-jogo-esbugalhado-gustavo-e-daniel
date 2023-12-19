@@ -313,7 +313,6 @@ function iniciaJogo() {
 
     jogoRodando = true;
 
-    // Inicia o jogo com a jogada automática
     mudarVez();
 }
 
