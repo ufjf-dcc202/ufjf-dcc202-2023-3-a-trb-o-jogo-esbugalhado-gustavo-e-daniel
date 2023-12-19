@@ -1,16 +1,23 @@
 const cellsTabuleiro1 = document.querySelectorAll("#jogoEsbugalhado1 .cell");
 const cellsTabuleiro2 = document.querySelectorAll("#jogoEsbugalhado2 .cell");
+/*arrays clicaveis jogadores*/
 const textoSobre = document.querySelector("#textoSobre");
 const reiniciarBtn = document.querySelector("#reiniciarBtn");
+/*variavel recebe o valor do reiniciar btn*/
 let opcoesTabuleiro1 = ["", "", "", "", "", "", "", "", ""];
 let opcoesTabuleiro2 = ["", "", "", "", "", "", "", "", ""];
+/*arrays clicaveis jogadores*/
 let pontuacaoTabuleiro1 = 0;
 let pontuacaoTabuleiro2 = 0;
+/*armazena a pontuacao do tabuleiro2 e 1  */
 let somaColunasTotalTabuleiro1 = [0, 0, 0];
 let somaColunasTotalTabuleiro2 = [0, 0, 0];
 let jogadorAtual = "2";
+/*    */
 let jogoRodando = false;
+/*essa var idica se o jogo ta rodando ou nao*/
 const jogadores = ['Ratau', 'Cordeiro']
+/*array representa os nomes dos jogadores*/
 let jogadorAtualIndex = 0; // Inicia com o primeiro jogador
 textoSobre.textContent = `Vez de ${jogadores[jogadorAtualIndex]} jogar`;
 
@@ -23,12 +30,15 @@ audio.addEventListener('ended', function () {
 });
 
 const rodarDado2Btn = document.querySelector("#rodarDado2");
+/*arrays clicaveis jogadores*/
 rodarDado2Btn.addEventListener("click", () => rodarDado(2));
+/*arrays clicaveis jogadores*/
 
 // Função responsável para rodar o dado dos tabuleiros
 function rodarDado(tabuleiro) {
     // Verifica se o jogo está rodando, se não estiver, a função retorna sem fazer nada
     if (!jogoRodando) {
+        /*arrays clicaveis jogadores*/
         return;
     }
 
